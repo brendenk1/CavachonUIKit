@@ -22,9 +22,6 @@ let package = Package(
             name: "CavachonUIKit",
             dependencies: [
                 .byName(name: "InkdryerKit")
-            ]),
-        .testTarget(
-            name: "CavachonUIKitTests",
-            dependencies: ["CavachonUIKit"]),
+            ])
     ]
 )
