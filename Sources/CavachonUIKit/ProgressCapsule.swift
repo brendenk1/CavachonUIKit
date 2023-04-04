@@ -1,4 +1,5 @@
 import Combine
+import InkdryerKit
 import SwiftUI
 
 public struct ProgressCapsule: View {
@@ -6,23 +7,49 @@ public struct ProgressCapsule: View {
     
     @StateObject private var model = Model()
     
+    @Environment(\.colorScheme) private var scheme
+    
     public var body: some View {
         ZStack {
             Capsule()
-                .fill(Color.gray.opacity(0.2))
+                .fill(capsuleBackground.color)
             
             Capsule()
                 .trim(from: .zero, to: model.trim)
-                .stroke(lineWidth: 2)
+                .stroke(outline.color, style: StrokeStyle(lineWidth: 2))
                 .opacity(model.trimOpacity)
                 .animation(.easeOut.speed(0.5), value: model.trim)
                 .animation(.easeOut.speed(0.5), value: model.trimOpacity)
             
             Capsule()
-                .fill(Color.white)
+                .fill(flashColor.color)
                 .opacity(model.flashOpacity)
         }
         .frame(height: 24)
+    }
+    
+    private var capsuleBackground: any InkDryerColor {
+        switch scheme {
+        case .light:        return Gray.seven
+        case .dark:         return Gray.thirteen
+        @unknown default:   return Gray.baseColor
+        }
+    }
+    
+    private var flashColor: any InkDryerColor {
+        switch scheme {
+        case .light:        return Gray.eight
+        case .dark:         return Gray.nine
+        @unknown default:   return White.baseColor
+        }
+    }
+    
+    private var outline: any InkDryerColor {
+        switch scheme {
+        case .light:        return Gray.nine
+        case .dark:         return Gray.baseColor
+        @unknown default:   return Gray.baseColor
+        }
     }
 }
 
@@ -69,5 +96,6 @@ struct ProgressCapsule_Previews: PreviewProvider {
     static var previews: some View {
         ProgressCapsule()
             .frame(height: 24)
+            .padding()
     }
 }

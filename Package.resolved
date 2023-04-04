@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "inkdryerkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/brendenk1/InkdryerKit.git",
+      "state" : {
+        "revision" : "72ef3f6f8c5ea7eb87351aaed179297ccb8cd9e7",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
