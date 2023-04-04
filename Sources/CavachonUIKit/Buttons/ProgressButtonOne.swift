@@ -7,37 +7,16 @@ public struct ProgressButtonOne<Label: View>: View {
         action: @escaping () async -> Void
     ) {
         self.label = label
-        self._model = StateObject(wrappedValue: Model(action))
+        self._model = StateObject(wrappedValue: TaskModel(action))
     }
     
-    @StateObject private var model: Model
+    @StateObject private var model: TaskModel
     
     private var label: () -> Label
     
     public var body: some View {
-        Button(action: model.performAction, label: label)
+        Button(action: model.performTask, label: label)
             .buttonStyle(ProgressOneStyle(isBusy: model.isBusy))
-    }
-}
-
-extension ProgressButtonOne {
-    @MainActor
-    final class Model: ObservableObject {
-        init(_ action: @escaping () async -> Void) {
-            self.action = action
-        }
-        
-        private var action: () async -> Void
-        
-        @Published var isBusy = false
-        
-        func performAction() {
-            Task {
-                isBusy = true
-                await action()
-                isBusy = false
-            }
-        }
     }
 }
 
