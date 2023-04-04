@@ -1,3 +1,3 @@
 # CavachonUIKit
 
-A description of this package.
+A collection of UI elements.
